@@ -20,3 +20,6 @@ to destroy after:
     ``` aws eks associate-access-policy --cluster-name Three-Tier-K8s-EKS-Cluster --region us-east-1 --principal-arn arn:aws:iam::<accound_id>:user/<username> --policy-arn arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy --access-scope type=cluster ```
 8. Login to ECR after cretion 
 ```aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin <accound_id>.dkr.ecr.us-east-1.amazonaws.com```
+9. Get ArgoCD default password 
+``` kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo ```
+10. 
