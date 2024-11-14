@@ -28,7 +28,7 @@ pipeline {
                     withSonarQubeEnv('sonar-server') {
                         sh ''' $SCANNER_HOME/bin/sonar-scanner \
                         -Dsonar.projectName=backend \
-                        -Dsonar.projectKey=backend '''
+                        -Dsonar.projectKey=sonar-token '''
                     }
                 }
             }
@@ -40,14 +40,14 @@ pipeline {
                 }
             }
         }
-        stage('OWASP Dependency-Check Scan') {
-            steps {
-                dir('Application-Code/backend') {
-                    dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'DP-Check'
-                    dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
-                }
-            }
-        }
+        // stage('OWASP Dependency-Check Scan') {
+        //     steps {
+        //         dir('Application-Code/backend') {
+        //             dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'dp-check'
+        //             dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+        //         }
+        //     }
+        // }
         stage('Trivy File Scan') {
             steps {
                 dir('Application-Code/backend') {
@@ -91,8 +91,8 @@ pipeline {
                 GIT_USER_NAME = "alskorov"
             }
             steps {
-                dir('Kubernetes-Manifests-file/Backend') {
-                    withCredentials([string(credentialsId: 'GITHUB', variable: 'github')]) {
+                dir('k8s-manifest/Backend') {
+                    withCredentials([string(credentialsId: 'github', variable: 'github')]) {
                         sh '''
                             git config user.email "skorovalex@gmail.com"
                             git config user.name "alskorov"
