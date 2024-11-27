@@ -22,20 +22,21 @@ macos ```brew install awscli```
 ### Create EKS cluster: 
 ``` eksctl create cluster --name Three-Tier-K8s-EKS-Cluster --region us-east-1 --node-type t3.medium --nodes-min 2 --nodes-max 2 ```
 
-to destroy after:
-*   ``` eksctl delete cluster --name Three-Tier-K8s-EKS-Cluster --region us-east-1 ```
+to destroy after:  ``` eksctl delete cluster --name Three-Tier-K8s-EKS-Cluster --region us-east-1 ```
+ 
+ To configure kubectl to connect to the cluster: ``` aws eks update-kubeconfig --region us-east-1 --name Three-Tier-K8s-EKS-Cluster ```
 
- To configure kubectl to connect to the cluster:
-
-*    ``` aws eks update-kubeconfig --region us-east-1 --name Three-Tier-K8s-EKS-Cluster ```
 ### Grant access to EKS cluster:<br>
     a. Create access entry for the user: 
     * ``` aws eks create-access-entry --cluster-name Three-Tier-K8s-EKS-Cluster --region us-east-1 --principal-arn arn:aws:iam::<accound_id>:user/<username> ``` 
     <br> b. Associate access policy with user 
     * ``` aws eks associate-access-policy --cluster-name Three-Tier-K8s-EKS-Cluster --region us-east-1 --principal-arn arn:aws:iam::<accound_id>:user/<username> --policy-arn arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy --access-scope type=cluster ```
+
 ### Login to ECR after cretion 
-* ```aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin <accound_id>.dkr.ecr.us-east-1.amazonaws.com```
+```aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin <accound_id>.dkr.ecr.us-east-1.amazonaws.com```
+
 ### Get ArgoCD default password 
-* ``` kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo ```
+``` kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo ```
+
 ### Create OIDC Provider
-* ``` eksctl utils associate-iam-oidc-provider --region=us-east-1 --cluster=Three-Tier-K8s-EKS-Cluster --approve ```
+``` eksctl utils associate-iam-oidc-provider --region=us-east-1 --cluster=Three-Tier-K8s-EKS-Cluster --approve ```
