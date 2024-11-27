@@ -31,6 +31,10 @@ Install Terraform and the AWS CLI on your local machine or server where you'll r
 
 Set up a Jenkins server on an AWS EC2 instance, and install essential tools like Docker, SonarQube, Terraform, kubectl, AWS CLI, and Trivy.
 
+- Navigate to the Jenkins-Server-TF
+- Do some modifications to the backend.tf file such as changing the bucket name and dynamodb table(make sure you have created both manually on AWS Cloud).
+- Replace the Pem File name as you have some other name for your Pem file. To provide the Pem file name that is already created on AWS
+
 ## Step 4: EKS Cluster Deployment
 
 Use `eksctl` to create an Amazon EKS cluster in the `us-east-1` region, specifying the node type and the minimum and maximum number of nodes.
