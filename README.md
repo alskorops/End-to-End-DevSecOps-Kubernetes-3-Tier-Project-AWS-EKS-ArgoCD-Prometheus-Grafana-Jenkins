@@ -1,5 +1,7 @@
 # Advanced End-to-End DevSecOps Kubernetes Three-Tier Project
 
+![Infrastructure](./infa/infra.png)
+
 ## Project Overview
 
 This project demonstrates a robust, secure, and scalable DevSecOps pipeline using AWS EKS, Jenkins, ArgoCD, Prometheus, Grafana, and other cloud-native tools. The project implements a comprehensive DevSecOps pipeline on AWS with Kubernetes, covering the following components:
